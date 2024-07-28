@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import datetime
 import gspread
+from util import check_password
 
 
 def filter_by_date(df, dt):
@@ -27,6 +28,9 @@ def get_ex_df(df, dt):
     # return [filter_by_exercise(df, e) for e in unique_exercises]
     return exercises
 
+
+if not check_password():
+    st.stop()
 
 # df_db = pd.read_csv('csv_db.csv')
 # Create a connection object
