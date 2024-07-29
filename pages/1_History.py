@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import datetime
+import pytz
 import gspread
 from util import (
     check_password,
@@ -39,7 +40,10 @@ worksheet = sh.get_worksheet(0)
 df_db = pd.DataFrame(worksheet.get_all_records())
 
 # date filter
-d = st.date_input("Exercise Date", datetime.date.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
+tz = pytz.timezone('America/New_York')
+dt_ny = datetime.datetime.now(tz)
+
+d = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
 st.write(d)
 exercises = get_ex_df(df_db, d)
 
