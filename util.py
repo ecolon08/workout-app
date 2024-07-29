@@ -60,4 +60,4 @@ def set_todays_date():
     if 'today' not in st.session_state:
         tz = pytz.timezone('America/New_York')
         dt_ny = datetime.datetime.now(tz)
-        st.session_state['today'] = dt_ny.today()
+        st.session_state['today'] = dt_ny.today().strftime('%m/%d/%y')
