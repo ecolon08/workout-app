@@ -1,5 +1,8 @@
 import streamlit as st
 import hmac
+import gspread
+import datetime
+import pytz
 
 
 def check_password():
@@ -43,3 +46,18 @@ def filter_by_exercise(df, ex):
 
 def filter_by_date(df, dt):
     return df[df['date'] == dt]
+
+
+def load_gs_worksheet():
+    creds = st.secrets['gspread']['gsheets_creds']
+    gc = gspread.service_account_from_dict(creds)
+    sh = gc.open('workout_db')
+    worksheet = sh.get_worksheet(0)
+    return worksheet
+
+
+def set_todays_date():
+    if 'today' not in st.session_state:
+        tz = pytz.timezone('America/New_York')
+        dt_ny = datetime.datetime.now(tz)
+        st.session_state['today'] = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")

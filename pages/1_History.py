@@ -6,7 +6,9 @@ import gspread
 from util import (
     check_password,
     filter_by_date,
-    filter_by_exercise
+    filter_by_exercise,
+    load_gs_worksheet,
+    set_todays_date
 )
 
 
@@ -31,21 +33,27 @@ if not check_password():
 
 # df_db = pd.read_csv('csv_db.csv')
 # Create a connection object
-creds = st.secrets['gspread']['gsheets_creds']
-gc = gspread.service_account_from_dict(creds)
-sh = gc.open('workout_db')
-worksheet = sh.get_worksheet(0)
+# creds = st.secrets['gspread']['gsheets_creds']
+# gc = gspread.service_account_from_dict(creds)
+# sh = gc.open('workout_db')
+# worksheet = sh.get_worksheet(0)
+worksheet = load_gs_worksheet()
 
 # print(sh.sheet1.get('A1'))
 df_db = pd.DataFrame(worksheet.get_all_records())
 
 # date filter
-tz = pytz.timezone('America/New_York')
-dt_ny = datetime.datetime.now(tz)
-
-d = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
+# tz = pytz.timezone('America/New_York')
+# dt_ny = datetime.datetime.now(tz)
+#
+# d = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
+set_todays_date()
+d = datetime.datetime.strptime(st.session_state['today'], "%m/%d/%y").date()
 st.write(d)
-exercises = get_ex_df(df_db, d)
+# st.write(type(d))
+d = st.date_input("Exercise Date", d, format="MM/DD/YYYY").strftime("%m/%d/%y")
+
+exercises = get_ex_df(df_db, st.session_state['today'])
 
 for e in exercises.keys():
     st.write(e)
