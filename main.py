@@ -2,7 +2,6 @@ import streamlit as st
 import hmac
 from util import check_password
 
-
 st.title('Workout Tracking App')
 
 if not check_password():

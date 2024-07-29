@@ -35,3 +35,11 @@ def check_password():
     if "password_correct" in st.session_state:
         st.error("😕 User not known or password incorrect")
     return False
+
+
+def filter_by_exercise(df, ex):
+    return df[df['exercise'] == ex]
+
+
+def filter_by_date(df, dt):
+    return df[df['date'] == dt]

@@ -2,15 +2,11 @@ import pandas as pd
 import streamlit as st
 import datetime
 import gspread
-from util import check_password
-
-
-def filter_by_date(df, dt):
-    return df[df['date'] == dt]
-
-
-def filter_by_exercise(df, ex):
-    return df[df['exercise'] == ex]
+from util import (
+    check_password,
+    filter_by_date,
+    filter_by_exercise
+)
 
 
 def get_ex_df(df, dt):
