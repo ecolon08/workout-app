@@ -46,7 +46,7 @@ df_db = pd.DataFrame(worksheet.get_all_records())
 tz = pytz.timezone('America/New_York')
 dt_ny = datetime.datetime.now(tz)
 #
-d = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
+d = st.date_input("Exercise Date", dt_ny.date(), format="MM/DD/YYYY").strftime("%m/%d/%y")
 # set_todays_date()
 # print(type(st.session_state['today']))
 # d = datetime.datetime.strptime(st.session_state['today'], "%m/%d/%y").date()
