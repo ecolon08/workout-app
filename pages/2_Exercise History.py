@@ -8,21 +8,11 @@ from util import (
     load_gs_worksheet
 )
 
-
 if not check_password():
     st.stop()
 
-# read database
-# df_db = pd.read_csv('csv_db.csv')
-# Create a connection object
-
-# creds = st.secrets['gspread']['gsheets_creds']
-# gc = gspread.service_account_from_dict(creds)
-# sh = gc.open('workout_db')
-# worksheet = sh.get_worksheet(0)
 worksheet = load_gs_worksheet()
 
-# print(sh.sheet1.get('A1'))
 df_db = pd.DataFrame(worksheet.get_all_records())
 
 # filter by Exercise

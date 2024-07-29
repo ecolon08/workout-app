@@ -1,6 +1,5 @@
 import streamlit as st
-import datetime
-import pytz
+import pandas as pd
 from util import (
     check_password,
     load_gs_worksheet,
@@ -17,6 +16,10 @@ set_todays_date()
 
 worksheet = load_gs_worksheet()
 
+# get list of unique exercises
+df_db = pd.DataFrame(worksheet.get_all_records())
+unique_exercises = df_db['exercise'].unique()
+
 # New set log form
 st.write("Log a new set")
 
@@ -25,6 +28,7 @@ with st.form(key='new_set'):
 
     with col1:
         exercise = st.text_input('Exercise', value='')
+        # exercise = st.multiselect(label='Exercise', options=unique_exercises)
 
     with col2:
         reps = st.text_input('Reps', value='')
