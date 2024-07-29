@@ -43,16 +43,16 @@ worksheet = load_gs_worksheet()
 df_db = pd.DataFrame(worksheet.get_all_records())
 
 # date filter
-# tz = pytz.timezone('America/New_York')
-# dt_ny = datetime.datetime.now(tz)
+tz = pytz.timezone('America/New_York')
+dt_ny = datetime.datetime.now(tz)
 #
-# d = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
-set_todays_date()
-print(type(st.session_state['today']))
-d = datetime.datetime.strptime(st.session_state['today'], "%m/%d/%y").date()
+d = st.date_input("Exercise Date", dt_ny.today(), format="MM/DD/YYYY").strftime("%m/%d/%y")
+# set_todays_date()
+# print(type(st.session_state['today']))
+# d = datetime.datetime.strptime(st.session_state['today'], "%m/%d/%y").date()
 st.write(d)
 # st.write(type(d))
-d = st.date_input("Exercise Date", d, format="MM/DD/YYYY").strftime("%m/%d/%y")
+# d = st.date_input("Exercise Date", d, format="MM/DD/YYYY").strftime("%m/%d/%y")
 
 # exercises = get_ex_df(df_db, st.session_state['today'])
 exercises = get_ex_df(df_db, d)
